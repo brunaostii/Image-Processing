@@ -9,11 +9,11 @@ def fft_fftshift(img):
 
     return fshift, magnitude_spectrum
 
-def ifft_ifftshift(img):
+def ifft_ifftshift(img, origin_min=0, origin_max=255):
     f_ishift = np.fft.ifftshift(img) # Retornando a componente de frequência-zero para o lugar original
     img_back = np.fft.ifft2(f_ishift)
     img_back = np.abs(img_back)
-    
+    norm_image = cv2.normalize(img_back, None, alpha=origin_min, beta=origin_max, norm_type=cv2.NORM_MINMAX, dtype=cv2.DFT_COMPLEX_OUTPUT).astype(np.uint8)
     return img_back
 
 def rotation_45(img, angle=45):
@@ -32,7 +32,8 @@ def plot_(img, magnitude_spectrum, img_back, title):
     plt.title(title[1]), plt.xticks([]), plt.yticks([])
     plt.subplot(133),plt.imshow(img_back, cmap = 'gray')
     plt.title(title[2]), plt.xticks([]), plt.yticks([])
-    #plt.suptitle(title[3], fontsize=14)
+    plt.suptitle(title[3], fontsize=14)
+    plt.savefig(title[3]+'.png')
     plt.show()
 
 def plot_6(imgs, title, subtitle):
@@ -55,5 +56,6 @@ def plot_6(imgs, title, subtitle):
     plt.subplot(236),plt.imshow(imgs[5], cmap = 'gray')
     plt.title(title[5]), plt.xticks([]), plt.yticks([])
 
-    #plt.suptitle(subtitle, fontsize=14)
+    plt.suptitle(subtitle, fontsize=14)
+    plt.savefig(subtitle+'.png')
     plt.show()
