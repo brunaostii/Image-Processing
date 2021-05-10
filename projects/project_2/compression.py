@@ -21,9 +21,9 @@ def compression_(img):
     for radius in (0.5,0.25, 0.1, 0.05, 0.01, 0.002):
         thresh = fft_sorted[int(np.floor((1 - radius) * len(fft_sorted)))]
         ind = np.abs(fshift) > thresh
-        atlow = fshift * ind
+        mask = fshift * ind
     
-        img_ifft = ifft_ifftshift(atlow)
+        img_ifft = ifft_ifftshift(mask)
         img_comp.append(img_ifft)
         title.append(radius)
    

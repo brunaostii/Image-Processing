@@ -14,7 +14,7 @@ def ifft_ifftshift(img, origin_min=0, origin_max=255):
     img_back = np.fft.ifft2(f_ishift)
     img_back = np.abs(img_back)
     norm_image = cv2.normalize(img_back, None, alpha=origin_min, beta=origin_max, norm_type=cv2.NORM_MINMAX, dtype=cv2.DFT_COMPLEX_OUTPUT).astype(np.uint8)
-    return img_back
+    return norm_image
 
 def rotation_45(img, angle=45):
     rows,cols = img.shape
